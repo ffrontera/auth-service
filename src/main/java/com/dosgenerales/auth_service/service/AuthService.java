@@ -23,7 +23,7 @@ public class AuthService {
 
     public AuthResponseDTO login(LoginRequestDTO request) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
-        Usuario usuario = usuarioRepository.finByEmail(request.getEmail()).orElseThrow();
+        Usuario usuario = usuarioRepository.findByEmail(request.getEmail()).orElseThrow();
         String token = jwtService.generateToken(usuario);
         return AuthResponseDTO.builder().token(token).build();
     }
